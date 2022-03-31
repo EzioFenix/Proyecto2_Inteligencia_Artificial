@@ -1,5 +1,3 @@
-
-
 ```yaml
 Campus: Ciudad Universitaria
 Facultad: Ingeniería
@@ -61,4 +59,3 @@ Para poder ejecutar el programa es necesario tener instalado un interprete de `p
 ## Barrera Peña Víctor Miguel
 
 ## Espino de Horta Joaquín Gustavo
-
