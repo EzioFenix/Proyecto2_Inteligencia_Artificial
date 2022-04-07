@@ -1,0 +1,432 @@
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Campus}\KeywordTok{:}\AttributeTok{ Ciudad Universitaria}
+\FunctionTok{Facultad}\KeywordTok{:}\AttributeTok{ Ingeniería}
+\FunctionTok{Materia }\KeywordTok{:}\AttributeTok{ Inteligencia Artificial}
+\FunctionTok{Semestre}\KeywordTok{:}\AttributeTok{ 2022{-}2}
+\FunctionTok{Equipo}\KeywordTok{:}\AttributeTok{ }\DecValTok{1}
+\FunctionTok{Clave}\KeywordTok{:}\AttributeTok{ }\DecValTok{0406}
+\FunctionTok{Participantes}\KeywordTok{:}\AttributeTok{ }
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ Barrera Peña Víctor Miguel}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ Espino De Horta Joaquín Gustavo}
+\AttributeTok{    }
+\FunctionTok{Profesor}\KeywordTok{:}\AttributeTok{ Dr. Ismael Everardo Barcenas Patiño}
+\FunctionTok{Título }\KeywordTok{:}\AttributeTok{ Proyecto 2}
+\FunctionTok{Subtítulo }\KeywordTok{:}\AttributeTok{ Fórmula de lógica proposicional valida o no}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{img/documentacion/1.png}
+
+\break
+
+\tableofcontents
+
+\break
+
+\hypertarget{definiciuxf3n-del-problema}{%
+\section{Definición del problema}\label{definiciuxf3n-del-problema}}
+
+Escribir un programa lógico que determine si una fórmula de lógica
+proposicional es válida o no.
+
+• Algoritmo basado en el cálculo de secuentes. • Entrada: una expresión
+de lógica proposicional. • Salida: una prueba (en código latex), si
+existe, de lo contrario, no válida.
+
+\hypertarget{capuxedtulo-0-estructura-del-repositorio}{%
+\section{Capítulo 0 Estructura del
+repositorio}\label{capuxedtulo-0-estructura-del-repositorio}}
+
+El repositorio documenta todo el proceso hecho para realizar el programa
+, incluyendo los pdf´s
+
+\hypertarget{bibliotecas-usadas}{%
+\subsection{Bibliotecas usadas}\label{bibliotecas-usadas}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\textbackslash{}usespackage}\NormalTok{\{prof\}}
+\FunctionTok{\textbackslash{}usespackage}\NormalTok{\{bussproofs\}}
+\end{Highlighting}
+\end{Shaded}
+
+Para poder ejecutar el programa es necesario tener instalado un
+interprete de \texttt{prolog} para poder ejecutar el programa.
+
+Para dar la apariencia a las etiquetas de los \texttt{prooftree} pues se
+uso
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\textbackslash{}mathcal}\NormalTok{\{I\} }\FunctionTok{\textbackslash{}mathcal}\NormalTok{\{D\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{capuxedtulo-1-introducciuxf3n}{%
+\section{Capítulo 1 Introducción}\label{capuxedtulo-1-introducciuxf3n}}
+
+``Aquel modo de razonamiento que examina el estado de las cosas
+afirmadas en las premisas, forma un diagrama de este estado de cosas,
+percibe en las partes de ese diagrama relaciones no mencionadas
+expl´ıcitamente en las premisas, se satisface a s´ı mismo mediante
+experimentos mentales sobre el diagrama, de que estas relaciones siempre
+subsistir´an, y concluye su verdad necesaria o probable'' Charles
+Sanders Peirce.
+
+Razonar partiendo de premisas mediante reglas para llegar a conclusiones
+es la tarea que tomamos desde la matemática para poder demostrar, este
+es uno de los principales objetivos de la lógica. Formalmente se
+demuestra la validez de un razonamiento mediante el método de deducción.
+
+El método de la deducción se hace usando las leyes de lógica de primer
+orden o mejor conocidas como \textbf{deducción natural}. Para logar
+obtener un resultado se hace uso de su principal herramienta que es el
+\textbf{cálculo de secuentes}.
+
+``El cálculo de secuentes presenta numerosas analogía con la deducción
+natural y, aunque se adapta bien al caso intuicionista, también resuelve
+problemas de validez y consecuencias lógicas para la lógica
+proposicional clásica.''
+
+\hypertarget{capuxedtulo-2-desarrollo}{%
+\section{Capítulo 2 Desarrollo}\label{capuxedtulo-2-desarrollo}}
+
+\hypertarget{idea-de-desarrollo-del-programa}{%
+\subsection{Idea de desarrollo del
+programa}\label{idea-de-desarrollo-del-programa}}
+
+\hypertarget{casos-de-prueba}{%
+\subsection{Casos de prueba}\label{casos-de-prueba}}
+
+\hypertarget{triviales-1-caso}{%
+\subsubsection{Triviales (1 caso)}\label{triviales-1-caso}}
+
+\begin{prooftree}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+ \AxiomC{}
+ \UnaryInfC{$A \vdash A $}
+\end{prooftree}
+
+\hypertarget{fuxe1ciles-3-casos}{%
+\subsubsection{Fáciles (3 casos)}\label{fuxe1ciles-3-casos}}
+
+\hypertarget{caso-1}{%
+\paragraph{Caso 1}\label{caso-1}}
+
+\begin{prooftree}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\AxiomC{}
+\UnaryInfC{$\vdash \neg A,A \:$}
+\RightLabel{ $\mathcal{D}\neg$}
+\UnaryInfC{$\vdash \neg A,A \:$}
+\RightLabel{ $\mathcal{I}\neg$}
+\UnaryInfC{ $\neg \neg A \vdash A$ }
+\end{prooftree}
+
+\hypertarget{caso-2}{%
+\paragraph{Caso 2}\label{caso-2}}
+
+\begin{prooftree}
+\AxiomC{$$}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\UnaryInfC{$A \vdash A$}
+\AxiomC{$$}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\UnaryInfC{$B \vdash B$}
+\RightLabel{ R ∧}
+\BinaryInfC{$A, B \vdash A ∧B$}
+\end{prooftree}
+
+\hypertarget{caso-3}{%
+\paragraph{Caso 3}\label{caso-3}}
+
+\begin{prooftree}
+\AxiomC{$$}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\UnaryInfC{$A \vdash A$}
+\RightLabel{ $\mathcal{R} \neg$}
+\UnaryInfC{$ \vdash \neg A,A$}
+\RightLabel{ $\mathcal{RX} $}
+\UnaryInfC{$ \vdash A ,\neg A$}
+\RightLabel{ $\mathcal{ANT}$}
+\UnaryInfC{$ \vdash A ∨ \neg A$}
+\end{prooftree}
+
+\hypertarget{media-3-casos}{%
+\subsubsection{Media (3 casos)}\label{media-3-casos}}
+
+\hypertarget{caso-1-1}{%
+\paragraph{Caso 1}\label{caso-1-1}}
+
+\begin{prooftree}
+
+
+\AxiomC{$B \vdash A,A$}
+\AxiomC{$B,B, \vdash A$}
+
+\RightLabel{ $\mathcal{I} \rightarrow $}
+\BinaryInfC{$B,A \rightarrow B \vdash A$}
+
+\RightLabel{ $\mathcal{D} \rightarrow  $}
+\UnaryInfC{$A \rightarrow  B \vdash B \rightarrow A $}
+
+\RightLabel{ $I \rightarrow$}
+\AxiomC{$A \vdash B, B$}
+\RightLabel{ $ I\rightarrow$}
+\AxiomC{$ A,A \vdash B$}
+
+\RightLabel{ $\mathcal{I} \rightarrow$}
+\BinaryInfC{$A,B \rightarrow A \vdash B$}
+
+\RightLabel{ $\mathcal{D} \rightarrow$}
+\UnaryInfC{$B \rightarrow A \vdash A \rightarrow B $}
+
+\RightLabel{ $D \leftrightarrow$ }
+\BinaryInfC{$ \vdash (A ∨ B) \rightarrow (A  \leftrightarrow B)$}
+\end{prooftree}
+
+\hypertarget{caso-2-1}{%
+\paragraph{Caso 2}\label{caso-2-1}}
+
+\begin{prooftree}
+
+\AxiomC{$$}
+
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\UnaryInfC{$A \vdash A$}
+\AxiomC{$A \vdash B$}
+
+\RightLabel{ $\mathcal{D} ∧ $}
+\BinaryInfC{$A \vdash (A ∧ B)$}
+
+\AxiomC{$$}
+
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+\UnaryInfC{$A \vdash A$}
+
+\RightLabel{ $\mathcal{I}- Debilitamiento$}
+\UnaryInfC{$A,B \vdash A$}
+
+\RightLabel{ $\mathcal{I} ∧$}
+\UnaryInfC{$(A ∧ B) \vdash A$ }
+
+\RightLabel{ $\mathcal{D} \leftrightarrow$ }
+\BinaryInfC{$\vdash A \leftrightarrow (A ∧ B )$}
+\end{prooftree}
+
+\hypertarget{caso-3-1}{%
+\paragraph{Caso 3}\label{caso-3-1}}
+
+\begin{prooftree}
+
+\AxiomC{$\vdash A,B$}
+
+\RightLabel{ $ \mathcal{I} \neg$}
+\UnaryInfC{$\neg A \vdash B$ }
+
+\RightLabel{ $ \mathcal{D} ∨$}
+\UnaryInfC{$ \vdash (A ∨ \neg B)$ }
+
+\AxiomC{$A,B\vdash$}
+
+\RightLabel{ $\mathcal{D} \neg$}
+\UnaryInfC{$A \vdash  \neg B$}
+
+\RightLabel{ $ \mathcal{D} ∨$}
+\UnaryInfC{$ \vdash (A ∨ \neg B)$ }
+
+\RightLabel{ $\mathcal{D} \hspace{0.3cm} Conjugacion $ }
+\BinaryInfC{$\vdash(\neg A ∨ B) ∧( A ∨ \neg B) $}
+\end{prooftree}
+
+\hypertarget{difuxedciles-3-casos}{%
+\subsubsection{Difíciles ( 3 casos )}\label{difuxedciles-3-casos}}
+
+\hypertarget{caso-1-2}{%
+\paragraph{Caso 1}\label{caso-1-2}}
+
+(revisar)
+
+\begin{prooftree}
+
+\AxiomC{$\vdash A,B$}
+
+\RightLabel{ $ \mathcal{I} \neg$}
+\UnaryInfC{$\neg A \vdash B$ }
+
+\RightLabel{ $ \mathcal{D} ∨$}
+\UnaryInfC{$ \vdash (A ∨ \neg B)$ }
+
+\AxiomC{$A \vdash A$}
+
+\RightLabel{ $\mathcal{D} \neg$}
+\UnaryInfC{$A, A \rightarrow B \vdash B$}
+
+\RightLabel{ $ \mathcal{D} ∨$}
+\UnaryInfC{$ A \rightarrow \vdash A \rightarrow B$ }
+
+\RightLabel{ $\mathcal{D} \rightarrow$ }
+\BinaryInfC{$\vdash( A ∨ B) \rightarrow( A \leftrightarrow B) $}
+\end{prooftree}
+
+\hypertarget{caso-2-2}{%
+\paragraph{Caso 2}\label{caso-2-2}}
+
+Caso 3
+
+\hypertarget{sin-soluciuxf3n-1-caso}{%
+\subsubsection{Sin solución (1 caso)}\label{sin-soluciuxf3n-1-caso}}
+
+\begin{prooftree}
+\RightLabel{ $\mathcal{I} \mathcal{D}$}
+ \AxiomC{}
+ \UnaryInfC{$A \vdash B $}
+\end{prooftree}
+
+\hypertarget{caso-1-3}{%
+\paragraph{Caso 1}\label{caso-1-3}}
+
+\hypertarget{cuxf3digo}{%
+\subsubsection{Código}\label{cuxf3digo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{//}\DataTypeTok{Definir}\NormalTok{ operaciones}\FunctionTok{//}
+
+\KeywordTok{:{-}}\FunctionTok{op}\NormalTok{(}\DecValTok{1}\KeywordTok{,}\NormalTok{fx}\KeywordTok{,}\NormalTok{neg)}\KeywordTok{.}
+\KeywordTok{:{-}}\FunctionTok{op}\NormalTok{(}\DecValTok{2}\KeywordTok{,}\NormalTok{xfy}\KeywordTok{,}\NormalTok{or)}\KeywordTok{.}
+\KeywordTok{:{-}}\FunctionTok{op}\NormalTok{(}\DecValTok{2}\KeywordTok{,}\NormalTok{xfy}\KeywordTok{,}\NormalTok{and)}\KeywordTok{.}
+\KeywordTok{:{-}}\FunctionTok{op}\NormalTok{(}\DecValTok{2}\KeywordTok{,}\NormalTok{xfy}\KeywordTok{,}\NormalTok{imp)}\KeywordTok{.}
+\KeywordTok{:{-}}\FunctionTok{op}\NormalTok{(}\DecValTok{2}\KeywordTok{,}\NormalTok{xfy}\KeywordTok{,}\NormalTok{dimp)}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Win} \DataTypeTok{Condition}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{sq([}\DataTypeTok{F}\NormalTok{]}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\NormalTok{])}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Debilitamiento}
+\NormalTok{sq([}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}} \DataTypeTok{atom}\NormalTok{(}\DataTypeTok{F}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}} \DataTypeTok{atom}\NormalTok{(}\DataTypeTok{F}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Negacion}
+\NormalTok{sq([neg }\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{,}
+\FunctionTok{//write}\NormalTok{(}\DataTypeTok{Archivo}\KeywordTok{,}\OtherTok{"}\CharTok{\textbackslash{}n}\ErrorTok{eg}\OtherTok{"}\FunctionTok{+}\DataTypeTok{G}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[neg }\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}}
+\NormalTok{sq([}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Disyuncion}
+\NormalTok{sq([}\DataTypeTok{F}\NormalTok{ or }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{sq([}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq([}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\NormalTok{ or }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}}
+\NormalTok{append([}\DataTypeTok{F}\NormalTok{,}\DataTypeTok{R}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Conjuncion}
+\NormalTok{sq([}\DataTypeTok{F}\NormalTok{ and }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{append([}\DataTypeTok{F}\NormalTok{,}\DataTypeTok{R}\NormalTok{]}\KeywordTok{,}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{U}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\NormalTok{ and }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Implicacion}
+\NormalTok{sq([}\DataTypeTok{F}\NormalTok{ imp }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{,}
+\NormalTok{sq([}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\NormalTok{ imp }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}}
+\NormalTok{sq([}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\NormalTok{[}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{.}
+
+\FunctionTok{//}\DataTypeTok{Doble} \DataTypeTok{Implicacion}
+\NormalTok{sq([}\DataTypeTok{F}\NormalTok{ dimp }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{:{-}}
+\NormalTok{append([}\DataTypeTok{F}\NormalTok{,}\DataTypeTok{R}\NormalTok{]}\KeywordTok{,}\DataTypeTok{D}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{,}
+\NormalTok{append([}\DataTypeTok{F}\NormalTok{,}\DataTypeTok{R}\NormalTok{]}\KeywordTok{,}\DataTypeTok{G}\KeywordTok{,}\DataTypeTok{U}\NormalTok{)}\KeywordTok{,}
+\NormalTok{sq(}\DataTypeTok{U}\KeywordTok{,}\DataTypeTok{D}\NormalTok{)}\KeywordTok{.}
+
+\NormalTok{sq(}\DataTypeTok{G}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\NormalTok{ dimp }\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{:{-}}
+\NormalTok{sq([}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\NormalTok{[}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{,}
+\NormalTok{sq([}\DataTypeTok{R}\FunctionTok{|}\DataTypeTok{G}\NormalTok{]}\KeywordTok{,}\NormalTok{[}\DataTypeTok{F}\FunctionTok{|}\DataTypeTok{D}\NormalTok{])}\KeywordTok{.}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{explicaciuxf3n-cuxf3digo}{%
+\subsection{Explicación código}\label{explicaciuxf3n-cuxf3digo}}
+
+\hypertarget{capuxedtulo-3-conclusiuxf3n}{%
+\section{Capítulo 3 Conclusión}\label{capuxedtulo-3-conclusiuxf3n}}
+
+\hypertarget{barrera-peuxf1a-vuxedctor-miguel}{%
+\subsection{Barrera Peña Víctor
+Miguel}\label{barrera-peuxf1a-vuxedctor-miguel}}
+
+Crear un programa en un nuevo paradigma de programación es un reto y más
+si aquel lenguaje haz hecho pocos ejercicios, además de entrar en
+conflicto con latex para crear las ecuaciones constituye un reto de buen
+nivel. Por anteriores motivos puedo decir que si bien hasta el momento
+no se ha logrado obtener todo a la perfección nos hemos acercado al
+objetivo de crear un programa que pueda crear los secuentes usando
+programación lógica.
+
+En lo que respecta, posiblemente con una semana más y un poco de
+práctica para encontrar el error de prolog es suficiente para poder
+concluir el proyecto con exito.
+
+\hypertarget{espino-de-horta-joaquuxedn-gustavo}{%
+\subsection{Espino de Horta Joaquín
+Gustavo}\label{espino-de-horta-joaquuxedn-gustavo}}
+
+El mayor desafío de este proyecto sin duda era el conocer y manipular
+correctamente el lenguaje argumentativo de Prolog un programa cuya única
+función es la de comprobar hechos y operaciones lógicas. Si bien el
+programa a realizar es en cierto punto sencillo, no se podía realizar de
+la manera correcta por muchos factores de falta de información, donde no
+se encuentra mucho soporte o documentación adecuada así como ciertas
+funciones que nos acortaban trabajo.
+
+Apuesto que si nos hubiesen dejado este mismo trabajo, con la gran
+libertad de hacerlo con un lenguaje de programación de libre elección,
+se habría llegado a un producto satisfactorio en menos de una semana
+como si ocurrió con el proyecto anterior. En cuanto al objetivo, cumple
+en el ámbito teórico así como su propuesta de ser posible a realizar en
+las propiedades de Prolog.
+
+Esperamos en los siguientes proyectos poder afrontarlos con la libertad
+necesaria de herramientas o con un mayor conocimiento de las condiciones
+a las que estaremos sujetos. Pues, lo que puedo argumentar, sería
+realmente fácil este proyecto como lo sugiere el sentido común, aún con
+la generación de archivo Latex si se permitiera usar cualquier lenguaje.
+
+\hypertarget{anexos-para-investigaciuxf3n}{%
+\section{Anexos para investigación}\label{anexos-para-investigaciuxf3n}}
+
+\hypertarget{charles-sanders-peirce}{%
+\subsection{Charles Sanders Peirce}\label{charles-sanders-peirce}}
+
+\begin{itemize}
+\tightlist
+\item
+  La ciencia de la
+  semiótica,http://mastor.cl/blog/wp-content/uploads/2015/08/PEIRCE-CH.-S.-La-Ciencia-de-La-Semi\%C3\%B3tica.pdf
+\end{itemize}
+
+\hypertarget{fuentes}{%
+\section{Fuentes}\label{fuentes}}
+
+\begin{itemize}
+\tightlist
+\item
+  FUENTES GUZMAN, D. A. N. I. E. L. C. A. M. I. L. O. (2014). CÁLCULO DE
+  SECUENTES Y GRAFICOS EXISTENCIALES ALFA: DOS ESTRUCTURAS EQUIVALENTES
+  PARA LA LOGICA PROPOSICIONAL. UNIVERSIDAD DEL TOLIMA. Recuperado 7 de
+  abril de 2022, de
+  http://repository.ut.edu.co/bitstream/001/1172/1/RIUT-ABA-spa-2014-C\%C3\%A1lculo\%20de\%20secuentes\%20y\%20gr\%C3\%A1ficos\%20existenciales\%20Alfa.\%20\%20Dos\%20estructuras\%20equivalentes\%20para\%20la\%20l\%C3\%B3gica\%20proposicional.pdf
+\end{itemize}
